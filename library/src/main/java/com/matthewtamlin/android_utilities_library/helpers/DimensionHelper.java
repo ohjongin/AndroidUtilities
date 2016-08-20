@@ -23,7 +23,8 @@ import android.util.TypedValue;
 /**
  * Helper class for converting complex units to pixels.
  */
-public abstract class DimensionHelper {
+@SuppressWarnings("WeakerAccess") // Library classes must be public
+public class DimensionHelper {
 	/**
 	 * Converts a dimension from display-independent pixels (dp) to pixels (px).
 	 *

@@ -21,7 +21,7 @@ import android.graphics.Color;
 /**
  * Helper class for working with colors.
  */
-public abstract class ColorHelper {
+public class ColorHelper {
 	/**
 	 * Blends two colours to produce a single output colour. No check is done to ensure the provided
 	 * colors are valid ARGB hex codes, and providing invalid codes will result in an undefined
@@ -39,6 +39,7 @@ public abstract class ColorHelper {
 	 * @throws IllegalArgumentException
 	 * 		if {@code ratio} is not between 0 and 1 (inclusive)
 	 */
+	@SuppressWarnings("SameParameterValue")
 	public static int blendColors(final int color1, final int color2, final float ratio) {
 		if (ratio < 0 || ratio > 1) {
 			throw new IllegalArgumentException("ratio must be between 0 and 1 (inclusive)");
