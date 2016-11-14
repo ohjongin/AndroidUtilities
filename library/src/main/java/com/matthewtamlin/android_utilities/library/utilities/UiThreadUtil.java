@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.android_utilities.library.testing;
+package com.matthewtamlin.android_utilities.library.utilities;
 
-import android.annotation.SuppressLint;
-import android.view.View;
-
-@SuppressLint("Registered") // Class is part of a public API and is not instantiated in this project
-public class NoViewTestHarness extends ControlsOverViewTestHarness<View> {
-	@Override
-	public View getTestView() {
-		return new View(this);
-	}
+/**
+ * Provides access to the UI thread.
+ */
+public interface UiThreadUtil {
+	/**
+	 * Runs the supplied runnable on the UI thread of the current app.
+	 *
+	 * @param runnable
+	 * 		the runnable to execute, may be null
+	 */
+	public void runOnUiThread(Runnable runnable);
 }
