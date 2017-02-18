@@ -19,23 +19,16 @@ apply plugin: 'com.android.library'
 ext {
 	PUBLISH_GROUP_ID = 'com.matthew-tamlin'
 	PUBLISH_ARTIFACT_ID = 'android-utilities'
-	PUBLISH_VERSION = '3.0.0'
+	PUBLISH_VERSION = '4.1.0'
 }
 
 android {
 	compileSdkVersion 25
 	buildToolsVersion "24.0.3"
 
-	//noinspection GroovyMissingReturnStatement
 	defaultConfig {
 		minSdkVersion 11
 		targetSdkVersion 25
-	}
-
-	// Allows espresso-core dependency to be used
-	//noinspection GroovyMissingReturnStatement
-	lintOptions {
-		disable 'InvalidPackage'
 	}
 }
 

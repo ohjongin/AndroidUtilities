@@ -16,12 +16,11 @@
 
 package com.matthewtamlin.android_utilities.library.helpers;
 
-import android.content.Context;
 import android.content.res.AssetManager;
 import android.support.annotation.RequiresPermission;
 import android.util.Log;
 
-import com.matthewtamlin.android_utilities.library.testing.Tested;
+import com.matthewtamlin.java_utilities.testing.Tested;
 
 import java.io.Closeable;
 import java.io.File;
@@ -33,7 +32,7 @@ import java.io.OutputStream;
 /**
  * Helper class for copying asset files to a storage directory.
  */
-@Tested(testMethod = "automated", requiresInstrumentation = true)
+@Tested(testMethod = "automated")
 public class AssetsHelper {
 	/**
 	 * Used during debugging to identify this class.
@@ -44,8 +43,8 @@ public class AssetsHelper {
 	/**
 	 * Copies specified asset resources to the supplied directory.
 	 *
-	 * @param context
-	 * 		the Context containing the assets to copy, not null
+	 * @param assetsManager
+	 * 		provides access to the application's assets, not null
 	 * @param assetFiles
 	 * 		the filenames of the asset files to copy, not null
 	 * @param targetDirectory
@@ -56,17 +55,16 @@ public class AssetsHelper {
 	 * 		if either {@code context}, {@code assetFiles} or {@code targetDirectory} is null
 	 */
 	@RequiresPermission(allOf = android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-	public static void copyAssetsToDirectory(final Context context, final String[] assetFiles,
+	public static void copyAssetsToDirectory(final AssetManager assetsManager,
+			final String[] assetFiles,
 			final File targetDirectory) throws IOException {
-		if (context == null) {
-			throw new IllegalArgumentException("context cannot be null");
+		if (assetsManager == null) {
+			throw new IllegalArgumentException("assetsManager cannot be null");
 		} else if (assetFiles == null) {
 			throw new IllegalArgumentException("assetFiles cannot be null");
 		} else if (targetDirectory == null) {
 			throw new IllegalArgumentException("targetDirectory cannot be null");
 		}
-
-		final AssetManager assetManager = context.getAssets();
 
 		for (final String filename : assetFiles) {
 			// Create a new file in the output directory to receive the asset data
@@ -79,7 +77,7 @@ public class AssetsHelper {
 			try {
 				// IOExceptions may be thrown
 				streamToTargetFile = new FileOutputStream(fileInTargetDirectory);
-				streamFromAssets = assetManager.open(filename);
+				streamFromAssets = assetsManager.open(filename);
 				copyFile(streamFromAssets, streamToTargetFile);
 			} finally {
 				// An IOException is probably unrecoverable so just abort and close the streams
